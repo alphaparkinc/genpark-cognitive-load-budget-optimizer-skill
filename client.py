@@ -57,8 +57,7 @@ class CognitiveLoadBudgetOptimizer:
     def compress_trace(self, reasoning_trace: str, target_ratio: float = 0.35) -> Dict[str, Any]:
         """Prunes repetitive thoughts, verbose inner monologues, and retains key decision milestones."""
         original_len = len(reasoning_trace)
-        lines = [line.strip() for line in reasoning_trace.split("
-") if line.strip()]
+        lines = [line.strip() for line in reasoning_trace.split("\n") if line.strip()]
         
         # Keep lines containing key action words or conclusions
         milestone_keywords = ["decided", "concluded", "action:", "tool:", "error:", "result:", "plan:", "success", "verified"]
@@ -74,8 +73,7 @@ class CognitiveLoadBudgetOptimizer:
             step = len(retained) / max_lines
             retained = [retained[int(i * step)] for i in range(max_lines)]
             
-        compressed = "
-".join(retained)
+        compressed = "\n".join(retained)
         compressed_len = len(compressed)
         ratio = (compressed_len / max(1, original_len)) * 100.0
         
