@@ -1,0 +1,51 @@
+{
+  "name": "genpark-cognitive-load-budget-optimizer-skill",
+  "version": "1.0.0",
+  "description": "Dynamic Cognitive Load, Latency & Token Budget Router. Monitors running agent loops, estimates token consumption and monetary cost, prunes verbose thinking chains when nearing limits, and routes sub-tasks between fast/cheap models and deep reasoning engines.",
+  "tools": [
+    {
+      "name": "optimize_cognitive_budget",
+      "description": "Audit token & monetary budget, compress verbose reasoning traces, and recommend optimal model routing tier.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "track_usage",
+              "compress_trace",
+              "route_model",
+              "get_budget_status"
+            ],
+            "description": "Budget optimization action."
+          },
+          "prompt_tokens": {
+            "type": "integer"
+          },
+          "completion_tokens": {
+            "type": "integer"
+          },
+          "cost_usd": {
+            "type": "number"
+          },
+          "reasoning_trace": {
+            "type": "string",
+            "description": "Verbose agent thinking trace to compress."
+          },
+          "task_complexity": {
+            "type": "string",
+            "enum": [
+              "simple",
+              "moderate",
+              "complex",
+              "critical_reasoning"
+            ]
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    }
+  ]
+}
